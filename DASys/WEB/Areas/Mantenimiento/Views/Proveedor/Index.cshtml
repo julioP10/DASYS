@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Proveedor";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+}
+@model Entidad.ProveedorFilterDto
+<div id="Proveedor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Listado de Condición</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-12 col-lg-9 b-filtros">
+                            <div class="align-items-center form-row">
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" autofocus class="form-control" onkeypress="Proveedor.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 b-actions">
+                            <div class="row">
+                                <a class="col b-action lu-link-add enlace-ajax" id="btnProveedorRegistro" href="#">
+                                    <img src="~/img/custom/lu-iconaction-register.png">
+                                    <br>
+                                    <span>Registrar</span>
+                                </a>
+                            </div>
+                        </div>
+                
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="ProveedorDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-480 dt-head-center"><div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="_checkGeneral" value="nada"><label class="custom-control-label" for="_checkGeneral"></label></div></th>
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center">Nombre</th>
+                                        <th class="hidden-480 dt-head-center">Descripcion</th>
+                                        <th class="hidden-480 dt-head-center">Estado</th>
+                                        <th class="hidden-480 dt-head-center">Opciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Proveedor.js")"></script>
+    <script>
+        urlProveedorIndex = '/Mantenimiento/Proveedor/Index';
+        urlProveedorPaginado = '/Mantenimiento/Proveedor/Listar';
+        urlRegistrarProveedor = '/Mantenimiento/Proveedor/Registrar';
+        urlActualizarProveedor = '/Mantenimiento/Proveedor/Actualizar';
+        urlConsultarProveedor = '/Mantenimiento/Proveedor/Consultar';
+        urlEliminarProveedor = '/Mantenimiento/Proveedor/Eliminar';
+        urlMantenimientoProveedor = '/Mantenimiento/Proveedor/Mantenimiento';
+        $(document).ready(function () {
+            Proveedor.init();
+        });
+    </script>
+
+
+}

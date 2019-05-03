@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Proveedors";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model ProveedorConsultaDto
+<div id="Proveedor" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formProveedor">
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="IdProveedor">
+                            <input type="text" asp-for="Codigo" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Codigo</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Descripcion" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Descripcion</label>
+                        </div>
+                    </div>
+                    @if (Model.Perfil.ToUpper() == "SUPERUSUARIO")
+                    {
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="IdEmpresa" asp-items="@(new SelectList(DropDown.ListaEmpresa(""),"Value","Nombre"))" required class="form-control">
+                                    <option value="0">Elegir Empresa</option>
+                                </select>
+                                <label class="floating-label">Empresa</label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <input asp-for="IdEmpresa" value="@Model.IdEmpresaPrincipal" type="hidden">
+                    }
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarProveedor">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdProveedor" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Proveedor.js")"></script>
+    <script>
+        urlProveedorIndex = '/Mantenimiento/Proveedor/Index';
+        urlProveedorPaginado = '/Mantenimiento/Proveedor/Listar';
+        urlRegistrarProveedor = '/Mantenimiento/Proveedor/Registrar';
+        urlActualizarProveedor = '/Mantenimiento/Proveedor/Actualizar';
+        urlConsultarProveedor = '/Mantenimiento//Consultar';
+        urlEliminarProveedor = '/Mantenimiento/Proveedor/Eliminar';
+        urlMantenimientoProveedor = '/Mantenimiento/Proveedor/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Proveedor.init();
+        });
+    </script>
+
+
+}

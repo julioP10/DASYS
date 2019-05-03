@@ -1,0 +1,140 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Documentos";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model DocumentoConsultaDto
+
+<div id="Documento" class="col-md-12">
+    <form id="formDocumento">
+        <div class="card ">
+            @*L: Formulario*@
+            <div class="card-body ">
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Descripcion" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Descripcion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select asp-for="IdEntidad" asp-items="@(new SelectList(DropDown.ListaEntidad(""), "Value", "Nombre"))" required class="form-control">
+                                <option value="0">Elegir Entidad</option>
+                            </select>
+                            <label class="floating-label">Entidad</label>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-2">
+                                <div class="anil_nepal">
+                                    <label class="switch switch-left-right">
+                                        @if (Model.FechaVencimiento)
+                                        {
+                                            <input checked asp-for="FechaVencimiento" class="switch-input" type="checkbox">
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="FechaVencimiento" class="switch-input" type="checkbox">
+
+                                        }
+                                        <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                    </label>
+                                    FechaVencimiento
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2">
+                                <div class="anil_nepal">
+                                    <label class="switch switch-left-right">
+                                        @if (Model.Obligatorio)
+                                        {
+                                            <input checked asp-for="Obligatorio" class="switch-input" type="checkbox">
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="Obligatorio" class="switch-input" type="checkbox">
+
+                                        }
+                                        <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                    </label>
+                                    Obligatorio
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2">
+                                <div class="anil_nepal">
+                                    <label class="switch switch-left-right">
+                                        @if (Model.IdEstado == "TRUE")
+                                        {
+                                            <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                        }
+                                        <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                    </label>
+                                    Estado
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card ">
+            <div class="card-header ">
+                <h4 class="card-title">Categorias</h4>
+            </div>
+            <div class="card-body ">
+                <div class="container">
+                    <div class="row" id="checkCategorias">
+                        <div class="alert alert-primary alert-dismissible fade show">
+                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="nc-icon nc-simple-remove"></i>
+                            </button>
+                            <span>
+                                <b>Categorias - </b> debe seleccionar una entidad
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="lu-form-actions">
+                        <button type="button" class="btn btn-columbia2" id="btn-RegresarDocumento">Regresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="IdDocumento" />
+        <input type="hidden" asp-for="IdCategoria" />
+    </form>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Documento.js")"></script>
+    <script>
+        urlDocumentoIndex = '/Mantenimiento/Documento/Index';
+        urlDocumentoPaginado = '/Mantenimiento/Documento/Listar';
+        urlRegistrarDocumento = '/Mantenimiento/Documento/Registrar';
+        urlActualizarDocumento = '/Mantenimiento/Documento/Actualizar';
+        urlConsultarDocumento = '/Mantenimiento/Documento/Consultar';
+        urlEliminarDocumento = '/Mantenimiento/Eliminar/Registrar';
+        urlMantenimientoDocumento = '/Mantenimiento/Documento/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Documento.init();
+        });
+    </script>
+
+
+}

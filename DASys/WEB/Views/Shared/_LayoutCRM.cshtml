@@ -1,0 +1,36 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    @RenderSection("styles", required: false)
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    <div id="content">
+        @RenderBody()
+    </div>
+
+    <!--L:Modal-->
+    <div class="modal custom-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" id="myModalContent"></div>
+    </div>
+
+    <!--L:Modal Seg -->
+    <div id="myModalSeg" class="modal fade custom-modal lu-modal-610px" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document" id="myModalContentSeg"></div>
+    </div>
+
+    <!--L:Modal Seglg -->
+    <div id="myModalSeglg" class="modal fade custom-modal lu-modal-950px" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document" id="myModalContentSeglg"></div>
+    </div>
+
+    <!--L:Modal de Registro de atencion-->
+    <div id="registrar-contacto" class="modal fade custom-modal lu-modal-610px" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document" id="model-AtencionContacto"></div>
+    </div>
+    @RenderSection("ComponentesVistas", required: false)
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/custom2.js"></script>
+</body>
+</html>

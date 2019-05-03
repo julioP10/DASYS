@@ -1,0 +1,164 @@
+﻿@{
+    var Modulos = (List<Entidad.ModuloConsultaDto>)ViewBag.Menu;
+    var Opciones = (List<Entidad.OpcionConsultaDto>)ViewBag.Opciones;
+    var OpcionesHijo = (List<Entidad.OpcionConsultaDto>)ViewBag.OpcionesHijo;
+    var tipoEmpresa = ViewBag.TipoEmpresa;
+    var tipoPerfil = ViewBag.TipoPerfil;
+}
+<ul class="nav">
+
+    <li class="menu-opcion active">
+        <a href="/Home/Index">
+            <i class="nc-icon nc-bank"></i>
+            <p>Inicio</p>
+        </a>
+    </li>
+
+
+    @if (Modulos != null)
+    {
+        @foreach (var modulo in Modulos)
+        {
+            <li class="menu-modulo">
+                <a data-toggle="collapse" href="#@modulo.IdModulo" aria-expanded="true">
+                    <i class="@modulo.Icono"></i>
+                    <p>
+                        @modulo.Nombre<b class="caret"></b>
+                    </p>
+                </a>
+                <div class="collapse" id="@modulo.IdModulo">
+                    <ul class="nav">
+                        @if (Opciones != null)
+                        {
+                            @foreach (var opcion in Opciones.Where(p=>p.IdModulo==modulo.IdModulo).ToList())
+                            {
+
+                                @if (modulo.IdModulo == opcion.IdModulo)
+                                {
+                                    @if (opcion.SubMenu > 0)
+                                    {
+                                        if (tipoEmpresa.ToUpper() == "SUBCONTRATISTA")
+                                        {
+                                            if (opcion.IdOpcion == "OP0076")
+                                            {
+                                                <li class="menu-opcion">
+                                                    <a data-toggle="collapse" href="#@opcion.IdOpcion" class="collapsed" aria-expanded="true">
+                                                        <span class="sidebar-mini-icon"><i class="@opcion.Icono" aria-hidden="true"></i></span>
+                                                        <p>
+                                                            &nbsp;&nbsp; @opcion.Nombre<b class="caret"></b>
+                                                            @*<img style="width:18px;height:18px;margin-right:5px;" src="~/img/custom/@opcion.Icono" />*@
+                                                        </p>
+                                                    </a>
+                                                    <div class="collapse" id="@opcion.IdOpcion" style="">
+                                                        <ul class="nav">
+                                                            @foreach (var opcionesSub in OpcionesHijo.ToList())
+                                                            {
+                                                                @if (opcion.IdOpcion == opcionesSub.IdPadre)
+                                                                {
+                                                                    <li class="menu-opcion">
+                                                                        <a class="enlace-ajax" style="padding-left: 10% !important;" href="#" data-url-ajax="/@opcionesSub.Area/@opcionesSub.Controlador/@opcionesSub.Accion">
+                                                                            <span class="sidebar-mini-icon">
+                                                                                <i class="@opcionesSub.Icono" aria-hidden="true"></i>
+                                                                            </span>
+                                                                            <span class="sidebar-normal"> @opcionesSub.Nombre </span>
+                                                                        </a>
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li class="menu-opcion">
+                                                <a data-toggle="collapse" href="#@opcion.IdOpcion" class="collapsed" aria-expanded="true">
+                                                    <span class="sidebar-mini-icon"><i class="@opcion.Icono" aria-hidden="true"></i></span>
+                                                    <p>
+                                                        &nbsp;&nbsp; @opcion.Nombre<b class="caret"></b>
+                                                        @*<img style="width:18px;height:18px;margin-right:5px;" src="~/img/custom/@opcion.Icono" />*@
+                                                    </p>
+                                                </a>
+                                                <div class="collapse" id="@opcion.IdOpcion" style="">
+                                                    <ul class="nav">
+                                                        @foreach (var opcionesSub in OpcionesHijo.ToList())
+                                                        {
+                                                            @if (opcion.IdOpcion == opcionesSub.IdPadre)
+                                                            {
+                                                                <li class="menu-opcion">
+                                                                    <a class="enlace-ajax" style="padding-left: 10% !important;" href="#" data-url-ajax="/@opcionesSub.Area/@opcionesSub.Controlador/@opcionesSub.Accion">
+                                                                        <span class="sidebar-mini-icon">
+                                                                            <i class="@opcionesSub.Icono" aria-hidden="true"></i>
+                                                                        </span>
+                                                                        <span class="sidebar-normal"> @opcionesSub.Nombre </span>
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @if (string.IsNullOrWhiteSpace(opcion.IdPadre))
+                                        {
+                                            if (tipoEmpresa.ToUpper() == "CONTRATISTA")
+                                            {
+                                                if (opcion.IdOpcion == "OP0036" || opcion.IdOpcion == "OP0016")
+                                                {
+
+                                                    <li class="menu-opcion">
+                                                        <a class="enlace-ajax" href="#" data-url-ajax="/@opcion.Area/@opcion.Controlador/@opcion.Accion">
+                                                            <span class="sidebar-mini-icon">
+                                                                <span class="sidebar-mini-icon"></span>
+                                                                @*<img style="width:18px;height:18px;margin-right:5px;" src="~/img/custom/@opcion.Icono" />*@
+                                                            </span>
+                                                            <span class="sidebar-normal"> <i class="@opcion.Icono" aria-hidden="true"></i> @opcion.Nombre </span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            else if (tipoEmpresa.ToUpper() == "SUBCONTRATISTA")
+                                            {
+                                                if (opcion.IdOpcion == "OP0036")
+                                                {
+
+                                                    <li class="menu-opcion">
+                                                        <a class="enlace-ajax" href="#" data-url-ajax="/@opcion.Area/@opcion.Controlador/@opcion.Accion">
+                                                            <span class="sidebar-mini-icon">
+                                                                <span class="sidebar-mini-icon"></span>
+                                                                @*<img style="width:18px;height:18px;margin-right:5px;" src="~/img/custom/@opcion.Icono" />*@
+                                                            </span>
+                                                            <span class="sidebar-normal"> <i class="@opcion.Icono" aria-hidden="true"></i> @opcion.Nombre </span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li class="menu-opcion">
+                                                    <a class="enlace-ajax" href="#" data-url-ajax="/@opcion.Area/@opcion.Controlador/@opcion.Accion">
+                                                        <span class="sidebar-mini-icon">
+                                                            <span class="sidebar-mini-icon"></span>
+                                                            @*<img style="width:18px;height:18px;margin-right:5px;" src="~/img/custom/@opcion.Icono" />*@
+                                                        </span>
+                                                        <span class="sidebar-normal"> <i class="@opcion.Icono" aria-hidden="true"></i> @opcion.Nombre </span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            }
+                        }
+                    </ul>
+                </div>
+            </li>
+        }
+    }
+</ul>

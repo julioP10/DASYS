@@ -1,0 +1,12 @@
+C:\Users\PILLACA\source\repos\DASys\Interfaces\bin\Release\netstandard2.0\Interfaces.deps.json
+C:\Users\PILLACA\source\repos\DASys\Interfaces\bin\Release\netstandard2.0\Interfaces.dll
+C:\Users\PILLACA\source\repos\DASys\Interfaces\bin\Release\netstandard2.0\Interfaces.pdb
+C:\Users\PILLACA\source\repos\DASys\Interfaces\bin\Release\netstandard2.0\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Interfaces\bin\Release\netstandard2.0\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.csprojResolveAssemblyReference.cache
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.AssemblyInfoInputs.cache
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.AssemblyInfo.cs
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.csproj.CopyComplete
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.dll
+C:\Users\PILLACA\source\repos\DASys\Interfaces\obj\Release\netstandard2.0\Interfaces.pdb

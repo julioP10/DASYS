@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "DocumentosAdjuntos";
+    Layout = null;
+}
+
+<div class="modal-content view-asignar-counter">
+    <div class="modal-header">
+        <div class="row b-title">
+            <div class="col-sm-12 b-title">
+                <h2 id="txtCounter">Digitalizar</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form id="my-awesome-dropzone" action="/Difitalizacion/Difitalizacion/DifitalizacionColaborador" name="frmdropzone" class="dropzone" method="post" enctype="multipart/form-data">
+            <div class="fallback">
+                <input name="files" id="file" type="file" multiple />
+                <input type="hidden" name="documento" id="documento" />
+            </div>
+        </form>
+        <div class="inscribir-separador mx-3 w-100"></div>
+        <form id="frmDigitalizacionColaborador" class="b-formulario f1">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type='text' name="Observacion" id="Observacion" class="form-control" />
+                        <label class="floating-label">Observacion</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group campo-lleno">
+                        <div class='input-group campo-lleno' id="_FechaVencimiento">
+                            <input type='text' name="FechaVencimiento" id="FechaVencimiento" class="form-control datepicker campo-lleno" required />
+                            <label class="floating-label">Fecha Vencimiento</label>
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar-o fa-2x fa-lg"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="IdPersona" name="IdPersona" />
+            <input type="hidden" id="IdDocumento" name="IdDocumento" />
+            <input type="hidden" id="IdEstado" name="IdEstado" />
+            <input type="hidden" id="IdDigitalizacion" name="IdDigitalizacion" />
+
+            <div class="col-sm-12">
+                <div class="lu-form-actions">
+                    <button type="button" class="btn btn-columbia2" name="btn-cancelar-envio" id="btn-cancelar-envio" data-dismiss="modal">Salir</button>
+                    <button type="button" class="btn btn-danger btn-link" id="btn-enviar-archivo">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

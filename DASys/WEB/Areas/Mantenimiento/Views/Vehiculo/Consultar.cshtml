@@ -1,0 +1,256 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Vehiculos";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model VehiculoConsultaDto
+@{
+
+}
+<div id="Vehiculo">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div id="content-Vehiculo" style="display:none" class="card">
+                <div class="card-body ">
+                    <div class="row">
+                        <div id="resultado" class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="col-md-12">
+        <input type="hidden" id="_PerfilVehiculo" value="@Model.Perfil" />
+        <div class="card ">
+            @*L: Formulario*@
+            <div class="card-body ">
+                <form id="formVehiculo">
+                    <div class="row justify-content-around b-formulario">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="IdVehiculo" maxlength="11" min="11" class="form-control">
+                                <input type="text" asp-for="Codigo" maxlength="10" min="2" class="form-control" required>
+                                <label class="floating-label">Codigo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="Nombre" maxlength="100" min="2" class="form-control" required>
+                                <label class="floating-label">Nombre</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="Descripcion" maxlength="100" min="2" class="form-control" required>
+                                <label class="floating-label">Descripcion</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" asp-for="Documento" maxlength="100" min="2" class="form-control" required>
+                                <label class="floating-label">Documento</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <div class='input-group campo-lleno'>
+                                <input type='text' asp-for="InicioContrato" id="FechaInicioSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                <label class="floating-label"> Inicio Conttrato</label>
+                                <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <div class='input-group campo-lleno'>
+                                <input type='text' asp-for="FinContrato" id="FechaFinSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                <label class="floating-label">Fin Contrato</label>
+                                <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                            </div>
+                        </div>
+                        @if (Model.Perfil == "SUPERUSUARIO")
+                        {
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    @if (Model.TipoEmpresa == "PRINCIPAL")
+                                    {
+                                        <select asp-for="IdEmpresa" asp-items="@(new SelectList(DropDown.ListaEmpresa(Model.TipoEmpresa),"Value","Nombre")) " disabled class="form-control">
+                                            <option value="0">Elegir Empresa </option>
+                                        </select>
+
+                                    }
+                                    else
+                                    {
+                                        <select asp-for="IdEmpresa" asp-items="@(new SelectList(DropDown.ListaEmpresa(Model.TipoEmpresa),"Value","Nombre")) " required class="form-control">
+                                            <option value="0">Elegir Empresa </option>
+                                        </select>
+
+                                    }
+
+                                    <label class="floating-label">Vehiculo Contratante</label>
+                                </div>
+                            </div>
+
+                        }
+                        @if (Model.Perfil.ToUpper() == "ADMINISTRADOR")
+                        {
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    @if (Model.TipoEmpresa == "PRINCIPAL")
+                                    {
+                                        <select asp-for="IdEmpresa" disabled class="form-control">
+                                            <option value="0">Elegir Vehiculo </option>
+                                            @foreach (var item in DropDown.ListaEmpresaXempresa(Model.IdEmpresaPrincipal).Where(p => p.Valor5 != "SUBCONTRATISTA"))
+                                            {
+                                                <option value="@item.Value">@item.Nombre</option>
+                                            }
+                                        </select>
+
+                                    }
+                                    else
+                                    {
+                                        @if (Model.Tipo.ToUpper() == "CONTRATISTA")
+                                        {
+                                            <select disabled class="form-control">
+                                                <option value="0">Vehiculo Actual </option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select asp-for="IdEmpresa" required class="form-control">
+                                                <option value="0">Elegir Vehiculo </option>
+                                                @foreach (var item in DropDown.ListaEmpresaXempresa(Model.IdEmpresaPrincipal).Where(p => p.Valor5 != "SUBCONTRATISTA"))
+                                                {
+                                                    <option value="@item.Value">@item.Nombre</option>
+                                                }
+                                            </select>
+                                        }
+
+                                    }
+
+                                    <label class="floating-label">Vehiculo Contratante</label>
+                                </div>
+                            </div>
+
+                        }
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="IdTipo" asp-items="@(new SelectList(DropDown.ListaTipo(Model.IdEmpresaPrincipal), "Value", "Nombre"))" class="form-control">
+                                    <option value="0">Elegir Tipo</option>
+                                </select>
+                                <label class="floating-label">Tipo</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="IdMarca" asp-items="@(new SelectList(DropDown.ListaMarca(Model.IdEmpresaPrincipal,"EN0107"), "Value", "Nombre"))" class="form-control">
+                                    <option value="0">Elegir Marca</option>
+                                </select>
+                                <label class="floating-label">Marca</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="IdModelo" class="form-control">
+                                    <option value="0">Elegir Modelo</option>
+                                </select>
+                                <label class="floating-label">Modelo</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select asp-for="IdProveedor" asp-items="@(new SelectList(DropDown.ListaProveedor(Model.IdEmpresaPrincipal), "Value", "Nombre"))" class="form-control">
+                                    <option value="0">Elegir Proveedor</option>
+                                </select>
+                                <label class="floating-label">Proveedor</label>
+                            </div>
+                        </div>
+
+                        @if (Model.TipoEmpresa == "PRINCIPAL")
+                        {
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <select asp-for="IdCategoria" asp-items="@(new SelectList(DropDown.ListaCategoria("Empresa", Model.IdEmpresaPrincipal), "Value", "Nombre"))" class="form-control">
+                                        <option value="0">Elegir Categoria</option>
+                                    </select>
+                                    <label class="floating-label">Categoria</label>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <select asp-for="IdCategoria" required asp-items="@(new SelectList(DropDown.ListaCategoria("Empresa",Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                        <option value="0">Elegir Categoria</option>
+                                    </select>
+                                    <label class="floating-label">Categoria</label>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-md-4 col-md-offset-2">
+                            <div class="anil_nepal">
+                                <label class="switch switch-left-right">
+                                    @if (Model.IdEstado == "TRUE")
+                                    {
+                                        <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                    }
+                                    <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                </label>
+                                Estado
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <textarea type="text" asp-for="Observacion" maxlength="300" min="2" class="form-control" required></textarea>
+                                <label class="floating-label">Documento</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="lu-form-actions">
+                                <button type="button" class="btn btn-columbia2" id="btn-RegresarVehiculo">Regresar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="IdEmpresaPrincipal" name="_IdPadre" id="_IdPadre" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Vehiculo.js")"></script>
+    <script>
+        urlVehiculoIndex = '/Mantenimiento/Vehiculo/Index';
+        urlVehiculoPaginado = '/Mantenimiento/Vehiculo/Listar';
+        urlRegistrarVehiculo = '/Mantenimiento/Vehiculo/Registrar';
+        urlActualizarVehiculo = '/Mantenimiento/Vehiculo/Actualizar';
+        urlConsultarVehiculo = '/Mantenimiento/Vehiculo/Consultar';
+        urlEliminarVehiculo = '/Mantenimiento/Eliminar/Registrar';
+        urlMantenimientoVehiculo = '/Mantenimiento/Vehiculo/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Vehiculo.init();
+        });
+    </script>
+
+
+}

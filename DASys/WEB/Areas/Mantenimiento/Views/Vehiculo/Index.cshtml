@@ -1,0 +1,115 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Vehiculo";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+}
+@model Entidad.VehiculoFilterDto
+<div id="Vehiculo">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Listado de Vehiculos</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-12 col-lg-9 b-filtros">
+                            <div class="align-items-center form-row">
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" autofocus class="form-control" onkeypress="Vehiculo.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 b-actions">
+                            <div class="row">
+                                <a class="col b-action lu-link-add enlace-ajax" id="btnVehiculoRegistro" href="#">
+                                    <img src="~/img/custom/lu-iconaction-register.png">
+                                    <br>
+                                    <span>Registrar</span>
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav" style="padding-left:8px;display:none">
+                            <li class="nav-item btn-rotate dropdown">
+                                <a class="btn btn-primary btn-round dropdown-toggle btn-block nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Otras acciones
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Cambiar de Estado masivo</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="VehiculoDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-480 dt-head-center"><div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="_checkGeneral" value="nada"><label class="custom-control-label" for="_checkGeneral"></label></div></th>
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center">Nombre</th>
+                                        <th class="hidden-480 dt-head-center">Descripcion</th>
+                                        <th class="hidden-480 dt-head-center">Documento</th>
+                                        <th class="hidden-480 dt-head-center">InicioContrato</th>
+                                        <th class="hidden-480 dt-head-center">FinContrato</th>
+                                        <th class="hidden-480 dt-head-center">Empresa</th>
+                                        <th class="hidden-480 dt-head-center">Tipo</th>
+                                        <th class="hidden-480 dt-head-center">Marca</th>
+                                        <th class="hidden-480 dt-head-center">Modelo</th>
+                                        <th class="hidden-480 dt-head-center">Proveedor</th>
+                                        <th class="hidden-480 dt-head-center">Categoria</th>
+                                        <th class="hidden-480 dt-head-center">Observacion</th>
+                                        <th class="hidden-480 dt-head-center">Estado</th>
+                                        <th class="hidden-480 dt-head-center">Opciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+
+        <!-- end col-md-12 -->
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Vehiculo.js")"></script>
+    <script>
+        urlEmpresaIndex = '/Mantenimiento/Vehiculo/Index';
+        urlVehiculoPaginado = '/Mantenimiento/Vehiculo/Listar';
+        urlRegistrarVehiculo = '/Mantenimiento/Vehiculo/Registrar';
+        urlActualizarVehiculo = '/Mantenimiento/Vehiculo/Actualizar';
+        urlConsultarVehiculo = '/Mantenimiento/Vehiculo/Consultar';
+        urlEliminarVehiculo = '/Mantenimiento/Vehiculo/Eliminar';
+        urlMantenimientoVehiculo = '/Mantenimiento/Vehiculo/Mantenimiento';
+        $(document).ready(function () {
+            Vehiculo.init();
+        });
+    </script>
+
+
+}

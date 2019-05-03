@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Usuarios";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model UsuarioConsultaDto
+
+<div id="Usuario" class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="~/img/bg/damir-bosnjak.jpg" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="#">
+                            <img class="avatar border-gray" src="~/img/default-avatar.png" alt="...">
+                            <h5 class="title">@Model.Usuarios</h5>
+                        </a>
+                        <p class="description">
+                            @Model.Correo
+                        </p>
+                    </div>
+                    <p class="description text-center">
+                        @Model.Perfil
+                        <br> @Model.EmpresaNombre
+                        <br> @Model.TipoEmpresa
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Editar Cuenta</h5>
+                </div>
+                <div class="card-body">
+                    <form id="formUsuario">
+                        <div class="row justify-content-around b-formulario">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" asp-for="Usuarios" maxlength="150" class="form-control" required>
+                                    <label class="floating-label">Usuario</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="password" asp-for="Password" maxlength="150" class="form-control">
+                                    <label class="floating-label">Password</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="text" asp-for="Correo" maxlength="30" class="form-control" required>
+                                    <label class="floating-label">Correo</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4"style="display:none">
+                                <div class="form-group">
+                                    <select asp-for="IdPerfil"  asp-items="@(new SelectList(DropDown.ListaPerfil(),"Value","Nombre"))" class="form-control">
+                                        <option value="0">Elegir Perfil</option>
+                                    </select>
+                                    <label class="floating-label">Perfil</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4"style="display:none">
+                                <div class="form-group">
+                                    <select id="_tipoEmpresa" asp-for="Tipo"  class="form-control">
+                                        <option value="0">Elegir tipo Empresa </option>
+                                        <option value="PRINCIPAL">Empresa Principal</option>
+                                        <option value="CONTRATISTA">Empresa Contratista</option>
+                                        <option value="SUBCONTRATISTA">Empresa SubContratista </option>
+                                    </select>
+                                    <label class="floating-label">Tipo Empresa</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4"style="display:none">
+                                <div class="form-group">
+                                    <select asp-for="IdEmpresa"  class="form-control">
+                                        <option value="0">Elegir Empresa </option>
+                                    </select>
+                                    <label class="floating-label">Empresa</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2"style="display:none">
+                                <div class="anil_nepal">
+                                    <label class="switch switch-left-right">
+                                        <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                        <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                    </label>
+                                    Estado
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="lu-form-actions">
+                                    <button type="button" class="btn btn-columbia1" id="btnModificarUsuario">Actualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="IdUsuario" />
+                        <input type="hidden" asp-for="IdOpcion" />
+                        <input type="hidden" asp-for="IdEmpresa" name="_IdEmpresa" id="_IdEmpresa" />
+                        <input type="hidden" asp-for="TipoEmpresa" />
+                        <input type="hidden" asp-for="EmpresaPertence" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Seguridad/Usuario.js")"></script>
+    <script>
+        urlUsuarioIndex = '/Seguridad/Usuario/Index';
+        urlUsuarioPaginado = '/Seguridad/Usuario/Listar';
+        urlRegistrarUsuario = '/Seguridad/Usuario/Registrar';
+        urlActualizarUsuario = '/Seguridad/Usuario/Actualizar';
+        urlConsultarUsuario = '/Seguridad/Usuario/Consultar';
+        urlEliminarUsuario = '/Seguridad/Eliminar/Registrar';
+        urlMantenimientoUsuario = '/Seguridad/Usuario/Mantenimiento';
+        $(document).ready(function () {
+            
+            Usuario.init();
+        });
+    </script>
+
+
+}

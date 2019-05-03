@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Modelos";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@{
+}
+@model ModeloConsultaDto
+<div id="Modelo" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formModelo">
+                <input type="hidden" asp-for="Accion" value="1" />
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select asp-for="IdMarca"  required class="form-control">
+                                <option value="0">Elegir Marca</option>
+                            </select>
+                            <label class="floating-label">Marca</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-md-offset-6">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarModelo">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarModelo">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdModelo" />
+                <input type="hidden" asp-for="IdEmpresa" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Trasporte/Modelo.js")"></script>
+    <script>
+        urlModeloIndex = '/Trasporte/Modelo/Index';
+        urlModeloPaginado = '/Trasporte/Modelo/Listar';
+        urlRegistrarModelo = '/Trasporte/Modelo/Registrar';
+        urlActualizarModelo = '/Trasporte/Modelo/Actualizar';
+        urlConsultarModelo = '/Trasporte/Modelo/Consultar';
+        urlEliminarModelo = '/Trasporte/Modelo/Eliminar';
+        urlMantenimientoModelo = '/Trasporte/Modelo/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Modelo.init();
+        });
+    </script>
+
+
+}

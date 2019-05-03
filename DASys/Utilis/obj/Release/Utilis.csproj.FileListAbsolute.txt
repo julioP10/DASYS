@@ -1,0 +1,16 @@
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Utilis.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Utilis.pdb
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Datos.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Interfaces.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\netstandard.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Datos.pdb
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Interfaces.pdb
+C:\Users\PILLACA\source\repos\DASys\Utilis\bin\Release\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\PILLACA\source\repos\DASys\Utilis\obj\Release\Utilis.csprojResolveAssemblyReference.cache
+C:\Users\PILLACA\source\repos\DASys\Utilis\obj\Release\Utilis.csproj.CoreCompileInputs.cache
+C:\Users\PILLACA\source\repos\DASys\Utilis\obj\Release\Utilis.csproj.CopyComplete
+C:\Users\PILLACA\source\repos\DASys\Utilis\obj\Release\Utilis.dll
+C:\Users\PILLACA\source\repos\DASys\Utilis\obj\Release\Utilis.pdb

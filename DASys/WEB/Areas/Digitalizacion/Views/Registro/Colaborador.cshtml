@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Digitalizacion";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+}
+@model Entidad.ColaboradorFilterDto
+<div id="Digitalizacion">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Listado de Colaboradores en Registro</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-12 col-lg-9 b-filtros">
+                            <div class="align-items-center form-row">
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" autofocus class="form-control" onkeypress="Digitalizacion.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="ColaboradorDataTable">
+                                <thead>
+                                    <tr>
+
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center">Nombre y Apellido</th>
+                                        <th class="hidden-480 dt-head-center">Empresa</th>
+                                        <th class="hidden-480 dt-head-center">Genero</th>
+                                        <th class="hidden-480 dt-head-center">Ubicacion</th>
+                                        <th class="hidden-480 dt-head-center">Entidad</th>
+                                        <th class="hidden-480 dt-head-center">Departamento</th>
+                                        <th class="hidden-480 dt-head-center">Opciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="@Url.Content("~/js/App/ViewJs/Digitalizacion/Digitalizacion.js")"></script>
+    <script>
+        urlDigitalizacionIndex = '/Digitalizacion/Registro/Index';
+        urlDigitalizacionPaginado = '/Digitalizacion/Registro/Listar';
+        urlRegistrarDigitalizacion = '/Digitalizacion/Registro/Registrar';
+        urlActualizarDigitalizacion = '/Digitalizacion/Registro/Actualizar';
+        urlConsultarDigitalizacion = '/Digitalizacion/Registro/Consultar';
+        urlEliminarDigitalizacion = '/Digitalizacion/Registro/Eliminar';
+        urlMantenimientoDigitalizacion = '/Digitalizacion/Registro/Mantenimiento';
+        urlDigitalizacionColaborador = '/Digitalizacion/Digitalizacion/DigitalizacionColaborador';
+        entidad = "Colaborador";
+        _estadoDigitalizacion = "REGISTRO";
+        $(document).ready(function () {
+            Digitalizacion.init();
+        });
+    </script>
+
+
+}

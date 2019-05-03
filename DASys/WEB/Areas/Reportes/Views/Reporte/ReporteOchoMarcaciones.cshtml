@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > ReporteColaborador";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+}
+@using Entidad
+@using WEB
+@model Entidad.ReporteFilterDto
+<div id="ReporteOchoMarcaciones">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Reporte de Empresa</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-lg-12 b-filtros">
+                            <div class="align-items-center form-row">
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="EntidadSearch" class="form-control">
+                                        @foreach (var item in DropDown.ListaEntidad("").ToList())
+                                        {
+                                            <option value="@item.Nombre">@item.Nombre</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdCategoriaSearch" class="form-control">
+                                        <option value="0">Elegir Categoria</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdDepartamentoSearch" asp-items="@(new SelectList(DropDown.ListaDepartamento(Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                        <option value="0">Elegir Departamento</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdUbicacionSearch" class="form-control">
+                                        <option value="0">Elegir Ubicacion</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdTerminalSearch" asp-items="@(new SelectList(DropDown.ListaTerminal(),"Value","Nombre"))" class="form-control">
+                                        <option value="0">Elegir Terminal</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <div class='input-group campo-lleno'>
+                                        <input type='text' asp-for="FechaInicioSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                        <label class="floating-label">Fecha Inicio</label>
+                                        <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <div class='input-group campo-lleno'>
+                                        <input type='text' asp-for="FechaFinSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                        <label class="floating-label">Fecha Fin</label>
+                                        <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" autofocus class="form-control" onkeypress="ReporteOchoMarcaciones.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="ReporteOchoMarcacionesDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-480 dt-head-center">Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center">Nombre</th>
+                                        <th class="hidden-480 dt-head-center">Numero</th>
+                                        <th class="hidden-480 dt-head-center">Genero</th>
+                                        <th class="hidden-480 dt-head-center">Empresa</th>
+                                        <th class="hidden-480 dt-head-center">Departamento</th>
+                                        <th class="hidden-480 dt-head-center">Ubicacion</th>
+                                        <th class="hidden-480 dt-head-center">Terminal</th>
+                                        <th class="hidden-480 dt-head-center">Fecha</th>
+                                        <th class="hidden-480 dt-head-center">1 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">2 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">3 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">4 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">5 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">6 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">7 Marcacion</th>
+                                        <th class="hidden-480 dt-head-center">8 Marcacion</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+    <!--Modal-->
+</div>
+
+@section Scripts{
+    <script src="@Url.Content(" ~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content(" ~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/dataTables.buttons.min.js"></script>
+    <script src="~/js/App/dataTables/buttons.flash.min.js"></script>
+    <script src="~/js/App/dataTables/jszip.min.js"></script>
+    <script src="~/js/App/dataTables/buttons.html5.min.js"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="~/js/App/ViewJs/Reportes/ReporteOchoMarcaciones.js"></script>
+    <script>
+        urlReporteOchoMarcacionesIndex = '/Reportes/Reporte/ReporteOchoMarcaciones';
+        urlReporteOchoMarcacionesListar = '/Reportes/Reporte/ListarReporteOchoMarcaciones';
+        $(document).ready(function () {
+            ReporteOchoMarcaciones.init();
+        });
+
+    </script>
+
+
+}

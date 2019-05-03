@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Regimens";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model RegimenConsultaDto
+<div id="Regimen" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formRegimen">
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarRegimen">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarRegimen">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdRegimen" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Regimen.js")"></script>
+    <script>
+        urlRegimenIndex = '/Mantenimiento/Regimen/Index';
+        urlRegimenPaginado = '/Mantenimiento/Regimen/Listar';
+        urlRegistrarRegimen = '/Mantenimiento/Regimen/Registrar';
+        urlActualizarRegimen = '/Mantenimiento/Regimen/Actualizar';
+        urlConsultarRegimen = '/Mantenimiento/Regimen/Consultar';
+        urlEliminarRegimen = '/Mantenimiento/Eliminar/Registrar';
+        urlMantenimientoRegimen = '/Mantenimiento/Regimen/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Regimen.init();
+        });
+    </script>
+
+
+}

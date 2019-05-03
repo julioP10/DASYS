@@ -1,0 +1,12 @@
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\bin\Debug\Entidad.dll
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\bin\Debug\Entidad.pdb
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\obj\Debug\Entidad.csprojResolveAssemblyReference.cache
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\obj\Debug\Entidad.csproj.CoreCompileInputs.cache
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\obj\Debug\Entidad.dll
+c:\Users\PILLACA\source\repos\ACCESNET\Entidad\obj\Debug\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Entidad\bin\Debug\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Entidad\bin\Debug\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Debug\Entidad.csproj.CoreCompileInputs.cache
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Debug\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Debug\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Debug\Entidad.csprojAssemblyReference.cache

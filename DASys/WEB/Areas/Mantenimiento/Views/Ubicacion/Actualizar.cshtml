@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Ubicacions";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model UbicacionConsultaDto
+<div id="Ubicacion" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formUbicacion">
+                <input type="hidden" asp-for="Accion" value="1" />
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <select asp-for="IdDepartamento" asp-items="@(new SelectList(DropDown.ListaDepartamento(Model.IdEmpresa),"Value","Nombre"))" required class="form-control">
+                                <option value="0">Elegir Departamento</option>
+                            </select>
+                            <label class="floating-label">Departamento</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                @if (Model.IdEstado.ToUpper() == "TRUE")
+                                {
+                                    <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                }
+                                else
+                                {
+                                    <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                }
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarUbicacion">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarUbicacion">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdUbicacion" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Ubicacion.js")"></script>
+    <script>
+        urlUbicacionIndex = '/Mantenimiento/Ubicacion/Index';
+        urlUbicacionPaginado = '/Mantenimiento/Ubicacion/Listar';
+        urlRegistrarUbicacion = '/Mantenimiento/Ubicacion/Registrar';
+        urlActualizarUbicacion = '/Mantenimiento/Ubicacion/Actualizar';
+        urlConsultarUbicacion = '/Mantenimiento/Ubicacion/Consultar';
+        urlEliminarUbicacion = '/Mantenimiento/Ubicacion/Eliminar';
+        urlMantenimientoUbicacion = '/Mantenimiento/Ubicacion/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Ubicacion.init();
+        });
+    </script>
+
+
+}

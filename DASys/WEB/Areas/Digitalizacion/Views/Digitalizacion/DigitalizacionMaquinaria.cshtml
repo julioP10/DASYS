@@ -1,0 +1,181 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > DigitalizacionMaquinaria";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+    <link href="~/css/App/dropzone/dropzone.css" rel="stylesheet" />
+}
+@model Entidad.MaquinariaDigitalizacionFilterDto
+<div id="DigitalizacionMaquinaria">
+    <input type="hidden" id="_EstadoDigitalizacion" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Lista de documentos</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-12 col-lg-9 b-filtros">
+                            <div class="align-items-center form-row">
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" autofocus class="form-control" onkeypress="DigitalizacionMaquinaria.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-3 b-actions">
+                            <div class="row">
+                                <a class="btn btn-success" id="btn-cambiar-estado" href="#">
+                                    <span class="btn-label">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </span>
+                                    Enviar a revision
+                                </a>
+                                <a class="btn btn-info" id="btn-cambiar-aprobar" href="#">
+                                    <span class="btn-label">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </span>
+                                    Aprobar
+                                </a>
+                                <a class="btn btn-danger" id="btn-cambiar-desaprobar" href="#">
+                                    <span class="btn-label">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </span>
+                                    Desprobar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="DigitalizacionMaquinariaDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center"></th>
+                                        <th class="hidden-480 dt-head-center">Categoria</th>
+                                        <th class="hidden-480 dt-head-center">Documento</th>
+                                        <th class="hidden-480 dt-head-center">Adjuntado</th>
+                                        <th class="hidden-480 dt-head-center">Obligatorio</th>
+                                        <th class="hidden-480 dt-head-center">FechaVencimiento</th>
+                                        <th class="hidden-480 dt-head-center">Estado</th>
+                                        <th class="hidden-480 dt-head-center">Estado</th>
+                                        <th class="hidden-480 dt-head-center">Observacion</th>
+                                        <th class="hidden-480 dt-head-center">Observacion</th>
+                                        <th class="hidden-480 dt-head-center">Opciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+    <!--Modal-->
+
+    <div id="ModalDesaprobar" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" style="display: none;z-index:1060" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <div class="modal-profile ml-auto mr-auto">
+                        <i class="nc-icon nc-bulb-63"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <p>Ingrese el motivo de la Observacion</p>
+                    <form id="frmDigitalizacionDesaprovar" class="b-formulario f1">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type='text' name="_Observacion" id="_Observacion" class="form-control" />
+                                <label class="floating-label">Observacion</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="left-side">
+                        <a href="#" data-opcion="DESAPROBAR" id="btn-aceptar-desaprobacion" class="btn btn-link btn-link btn-revisar-documento">Aceptar</a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="right-side">
+                        <button type="button" class="btn btn-link btn-link" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="~/js/App/dropzone/dropzone.js"></script>
+    <script src="~/js/App/Componentes/peqjvl.js"></script>
+    <script src="@Url.Content("~/js/App/ViewJs/Digitalizacion/DigitalizacionMaquinaria.js")"></script>
+    <script>
+        urlDigitalizacionMaquinariaIndex = '/Digitalizacion/Digitalizacion/DigitalizacionMaquinaria';
+        urlDigitalizacionListarMaquinaria = '/Digitalizacion/Digitalizacion/ListarMaquinaria';
+        urlRegistrarDigitalizacionMaquinaria = '/Digitalizacion/Digitalizacion/RegistrarMaquinaria';
+        urlMantenimientoDigitalizacionMaquinaria = '/Digitalizacion/Digitalizacion/Mantenimiento';
+        urlDigitalizacionCambiarEstadoMaquinaria = '/Digitalizacion/Digitalizacion/DigitalizacionCambiarEstado';
+        
+        entidad = "Maquinaria";
+        if (_digitalizacionOpcion === "REVISION") {
+            _observacion1 = false;
+            _adjuntado = false;
+            _observacion2 = true;
+            _estado1 = false;
+            _estado2 = true;
+            $("#btn-cambiar-estado").remove();
+            _urlIndex = "/Digitalizacion/Revision/Maquinaria";
+        }
+        else if (_digitalizacionOpcion === "APROBADO") {
+            _observacion1 = false;
+            _adjuntado = false;
+            _observacion2 = true;
+            _estado1 = false;
+            _estado2 = true;
+            $("#btn-cambiar-estado").remove();
+            $("#btn-cambiar-aprobar").remove();
+            $("#btn-cambiar-desaprobar").remove();
+            _urlIndex = "/Digitalizacion/Aprobado/Maquinaria";
+        }
+        else {
+            _observacion1 = true;
+            _observacion2 = false;
+            _adjuntado = true;
+            _estado1 = true;
+            _estado2 = false;
+            $("#btn-cambiar-aprobar").remove();
+            $("#btn-cambiar-desaprobar").remove();
+            _urlIndex = "/Digitalizacion/Registro/Maquinaria";
+        }
+        $(document).ready(function () {
+            DigitalizacionMaquinaria.init();
+
+
+        });
+
+    </script>
+
+
+}

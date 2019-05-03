@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "RegistrarParametros";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model ParametrosCorreoDto
+<div class="modal-content view-asignar-counter">
+    <div class="modal-header">
+        <div class="row b-title">
+            <div class="col-sm-12 b-title">
+                <h2 id="txtCounter">Configuracion para envio de correo</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+
+        <form id="frmParametrosCorreo" class="b-formulario f1">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type='text' required asp-for="Host" class="form-control" />
+                        <label class="floating-label">Host</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (string.IsNullOrWhiteSpace(Model.IdEmpresa))
+                            {
+                            <input type='number' value=""  required asp-for="Port" class="form-control" />
+                             }
+                        else
+	                        {
+                            <input type='number'  required asp-for="Port" class="form-control" />
+	                        }   
+                              <label class="floating-label">Port</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type='email' required asp-for="Correo" class="form-control" />
+                        <label class="floating-label">Correo</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                         @if (string.IsNullOrWhiteSpace(Model.Password))
+                            {
+                            <input type='password'   required asp-for="Password" class="form-control" />
+                             }
+                        else
+	                        {
+                            <input type='password'   asp-for="Password" class="form-control" />
+	                        }  
+                        <label class="floating-label">Password</label>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="IdParametros" />
+            <input type="hidden" asp-for="IdEmpresa" />
+            <div class="col-sm-12">
+                <div class="lu-form-actions">
+                    <button type="button" class="btn btn-columbia2"  data-dismiss="modal">Salir</button>
+                    <button type="button" class="btn btn-columbia1" id="btn-Guardar-parametro">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > ReporteMaquinaria";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/css/App/dataTables/jquery.dataTables.min.css")" />
+    <link href="~/css/App/dataTables/jquery.dataTables.responsive.min.css" rel="stylesheet" />
+}
+@using Entidad
+@using WEB
+@model Entidad.ReporteFilterDto
+<div id="ReporteMaquinaria">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @*L: Titulo y Buscador*@
+                    <div class="row b-top1">
+                        <div class="col-sm-6 mr-auto b-title">
+                            <h2>Reporte de Maquinaria</h2>
+                        </div>
+                        <div class="col-sm-6 ml-auto b-buscador">
+                        </div>
+                    </div>
+
+                    @*L: Filtros y Actions*@
+                    <div class="row b-top3 align-items-center">
+                        <div class="col-lg-12 b-filtros">
+                            <div class="align-items-center form-row">
+
+                                @if (Model.Perfil.ToUpper() == "SUPERUSUARIO")
+                                {
+                                    <div class="col-sm-3 form-group">
+                                        <select asp-for="TipoEmpresaSearch" class="form-control">
+                                            <option value="0">Seleccione Tipo</option>
+                                            <option value="PRINCIPAL">Principal</option>
+                                            <option value="CONTRATISTA">Contratista</option>
+                                            <option value="SUBCONTRATISTA">SubContratista</option>
+                                        </select>
+                                    </div>
+
+                                }
+                                else if (Model.Perfil.ToUpper() == "ADMINIDTRADOR")
+                                {
+                                    <div class="col-sm-3 form-group">
+                                        <select asp-for="TipoEmpresaSearch" class="form-control">
+                                            <option value="CONTRATISTA">Contratista</option>
+                                            <option value="SUBCONTRATISTA">SubContratista</option>
+                                        </select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-3 form-group">
+                                        <select asp-for="TipoEmpresaSearch" class="form-control">
+                                            <option value="SUBCONTRATISTA">SubContratista</option>
+                                        </select>
+                                    </div>
+                                }
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdEmpresaSearch" class="form-control">
+                                        <option value="0">Elegir Empresa </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <div class='input-group campo-lleno'>
+                                        <input type='text' asp-for="FechaInicioSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                        <label class="floating-label"> Inicio Conttrato</label>
+                                        <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <div class='input-group campo-lleno'>
+                                        <input type='text' asp-for="FechaFinSearch" class="form-control campo-lleno campo-focus lu-cal lu-cal-default" />
+                                        <label class="floating-label">Fin Contrato</label>
+                                        <span class="sidebar-section-nav__item-icon ua-icon-widget-calendar"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdTipoSearch" class="form-control">
+                                        <option value="0">Elegir Condicion de domicilio</option>
+                                        @foreach (var item in DropDown.ListaTipo(Model.IdEmpresaPrincipal).ToList())
+                                        {
+                                            <option data-valor="@item.Valor1" value="@item.Value">@item.Nombre</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdMarcaSearch" asp-items="@(new SelectList(DropDown.ListaMarca(Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                        <option value="0">Elegir Marca</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <select asp-for="IdModeloSearch" class="form-control">
+                                        <option value="0">Elegir Modelo</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <input type="text" asp-for="NombreSearch" class="form-control" onkeypress="ReporteMaquinaria.buscar(event)" placeholder="Nombre">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="inscribir-separador mx-3 w-100"></div>
+                    </div>
+                    @*L: Datatable*@
+                    <div class="row b-main">
+                        <div class="col-sm-12">
+                            <table class="dataTable  stripe row-border" style="width:100%" id="ReporteMaquinariaDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden-480 dt-head-center">Codigo</th>
+                                        <th class="hidden-480 dt-head-center">Nombre</th>
+                                        <th class="hidden-480 dt-head-center">Documento</th>
+                                        <th class="hidden-480 dt-head-center">Categoria</th>
+                                        <th class="hidden-480 dt-head-center">Empresa</th>
+                                        <th class="hidden-480 dt-head-center">Empresa Principal</th>
+                                        <th class="hidden-480 dt-head-center">Marca</th>
+                                        <th class="hidden-480 dt-head-center">Modelo</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- end content-->
+            </div>
+            <!--  end card  -->
+        </div>
+        <!-- end col-md-12 -->
+    </div>
+    <!--Modal-->
+</div>
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/js/App/dataTables/jquery.dataTables.fnReloadAjax.js")"></script>
+    <script src="~/js/App/dataTables/dataTables.buttons.min.js"></script>
+    <script src="~/js/App/dataTables/buttons.flash.min.js"></script>
+    <script src="~/js/App/dataTables/jszip.min.js"></script>
+    <script src="~/js/App/dataTables/buttons.html5.min.js"></script>
+    <script src="~/js/App/dataTables/jquery.dataTables.responsive.min.js"></script>
+    <script src="~/js/App/ViewJs/Reportes/ReporteMaquinaria.js"></script>
+    <script>
+        urlReporteMaquinariaIndex = '/Reportes/Reporte/ReporteMaquinaria';
+        urlReporteMaquinariaListar = '/Reportes/Reporte/ListarReporteMaquinaria';
+        $(document).ready(function () {
+            ReporteMaquinaria.init();
+        });
+
+    </script>
+
+
+}

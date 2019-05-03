@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "DocumentosAdjuntos";
+    Layout = null;
+}
+@model Entidad.DocumentoAdjuntoConsultaDto
+<div class="modal-content view-asignar-counter">
+    <div class="modal-header">
+        <div class="row b-title">
+            <div class="col-sm-12 b-title">
+                <h2 id="txtCounter">@Model.listDocumentoAdjunto[0].Documento</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" name="IdCorrespondienteAsignar" id="IdCorrespondienteAsignar" value="0" />
+        <div class="container" id="tourpackages-carousel">
+            <div class="row">
+                @if (Model.listDocumentoAdjunto.Count > 0)
+                {
+                    @foreach (var item in Model.listDocumentoAdjunto.ToList())
+                {
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="thumbnail">
+                        <div class="caption" style="background-image: url('/img/documento.png');background-repeat:  no-repeat;background-position: right;background-size: 70px;">
+                            <div class='col-lg-12 well well-add-card'>
+                                <h4>Archivo: @item.Nombre</h4>
+                            </div>
+                            <div class="row" style="    padding-left: 4% !important;">
+                                <div class='col-lg-6'>
+                                    <p>Obligatorio:</p>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <span>@item.Obligatorio</span>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <p>Vencimiento:</p>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <span>@item.Vencimiento</span>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <p>Fecha vencimiento:</p>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <span>@item.FechaVencimiento</span>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <p>Fecha Adjunto:</p>
+                                </div>
+                                <div class='col-lg-6'>
+                                    <span>@item.Fecha</span>
+                                </div>
+                            </div>
+                            @if (Model.Tipo == "REVISION")
+                            {
+                             <div class="col-sm-12">
+                                 <div class="lu-form-actions">
+                                     <a data-fancybox data-type="iframe" data-src="@item.Ruta" href="javascript:;" class="btn btn-primary btn-xs btn-update btn-add-card">Ver</a>
+                                 </div>
+                             </div>
+                            }
+                            else
+                            {
+                             <div class="col-sm-12">
+                               <div class="lu-form-actions">
+                                   <a data-fancybox data-type="iframe" data-src="@item.Ruta" href="javascript:;" class="btn btn-primary btn-xs btn-update btn-add-card">Ver</a>
+                                   @if (Model.Tipo!="APROBADO")
+	                               {
+                                     <a data-id="@item.IdDocumentoAdjunto" data-documento="@item.Ruta" class="btn btn-danger btn-xs btn-update btn-add-card btn-eliminar-documento">Eliminar</a>
+	                                }
+                               </div>
+                             </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+            </div><!-- End row -->
+        </div>
+        <br />
+         @if (Model.Tipo == "REVISION")
+          {
+           <div class="col-sm-12">
+               <div class="lu-form-actions">
+                   <a data-id="@Model.listDocumentoAdjunto[0].IdDigitalizacion" data-opcion="APROBAR" class="btn btn-success btn-xs btn-update btn-add-card btn-revisar-documento">Aprobar</a>
+                   <a data-id="@Model.listDocumentoAdjunto[0].IdDigitalizacion" class="btn btn-danger btn-xs btn-update btn-add-card btn-desaprobar-documento">Desaprobar</a>
+                   <button type="button" class="btn btn-default btn-xs btn-update btn-add-card btn-desaprobar-documento" name="btnCancelar" id="btnCancelar" data-dismiss="modal">Salir</button>
+               </div>
+           </div>
+          }
+          else
+          {
+           <div class="col-sm-12">
+               <div class="lu-form-actions">
+                   <button type="button" class="btn btn-columbia2" name="btnCancelar" id="btnCancelar" data-dismiss="modal">Salir</button>
+               </div>
+           </div>
+          }
+
+    </div>
+</div>

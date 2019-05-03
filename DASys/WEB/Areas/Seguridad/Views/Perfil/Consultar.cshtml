@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Perfils";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model PerfilConsultaDto
+
+<div id="Perfil" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formPerfil">
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Descripcion" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Descripcion</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="inscribir-separador mx-3 w-100"></div>
+
+                    <div class="container">
+                        <h4>Modulos</h4>
+                        <div class="row">
+                            @foreach (var item in DropDown.ListaModulo(Model.IdPerfil).ToList())
+                            {
+                                <div class="col-md-4 col-md-offset-2">
+                                    <div class="anil_nepal">
+                                        <label class="switch switch-left-right">
+                                            @if (item.Valor1 == "1")
+                                            {
+                                                <input modulo="modulo" checked value="@item.Value" class="switch-input" type="checkbox">
+                                            }
+                                            else
+                                            {
+                                                <input modulo="modulo" value="@item.Value" class="switch-input" type="checkbox">
+                                            }
+                                            <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                        </label>
+                                        @item.Nombre
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarPerfil">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdPerfil" />
+                <input type="hidden" asp-for="IdModulo" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Seguridad/Perfil.js")"></script>
+    <script>
+        urlPerfilIndex = '/Seguridad/Perfil/Index';
+        urlPerfilPaginado = '/Seguridad/Perfil/Listar';
+        urlRegistrarPerfil = '/Seguridad/Perfil/Registrar';
+        urlActualizarPerfil = '/Seguridad/Perfil/Actualizar';
+        urlConsultarPerfil = '/Seguridad/Perfil/Consultar';
+        urlEliminarPerfil = '/Seguridad/Eliminar/Registrar';
+        urlMantenimientoPerfil = '/Seguridad/Perfil/Mantenimiento';
+        $(document).ready(function () {
+            Perfil.init();
+        });
+    </script>
+
+
+}

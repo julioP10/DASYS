@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Configuracions";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model ConfiguracionConsultaDto
+<div id="Configuracion" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formConfiguracion">
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="TiempoEntreMarcaciones" maxlength="100" min="2" class="form-control" required>
+                            <label class="floating-label">Tiempo Entre Marcaciones</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="number" asp-for="TiempoColor" maxlength="100" min="2" class="form-control" required>
+                            <label class="floating-label">Tiempo Color</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="number" asp-for="TiempoRELAY" maxlength="100" min="2" class="form-control" required>
+                            <label class="floating-label">Tiempo RELAY</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                @if (Model.IdEstado == "TRUE")
+                                {
+                                    <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                }
+                                else
+                                {
+                                    <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                }
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarConfiguracion">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdConfiguracion" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Equipo/Configuracion.js")"></script>
+    <script>
+        urlConfiguracionIndex = '/Equipo/Configuracion/Index';
+        urlConfiguracionPaginado = '/Equipo/Configuracion/Listar';
+        urlRegistrarConfiguracion = '/Equipo/Configuracion/Registrar';
+        urlActualizarConfiguracion = '/Equipo/Configuracion/Actualizar';
+        urlConsultarConfiguracion = '/Equipo/Configuracion/Consultar';
+        urlEliminarConfiguracion = '/Equipo/Eliminar/Registrar';
+        urlMantenimientoConfiguracion = '/Equipo/Configuracion/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Configuracion.init();
+        });
+    </script>
+
+
+}

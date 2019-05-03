@@ -1,0 +1,26 @@
+﻿<environment include="Development">
+    <!-- Extra details for Live View on GitHub Pages -->
+    <!--     Fonts and icons     -->
+    @*<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />*@
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="~/vendor/flatpickr/flatpickr.min.css">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/paper-dashboard.min.css" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/demo/demo.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/css/App/sweetalert/sweetalert.css" rel="stylesheet" />
+</environment>
+<environment exclude="Development">
+    <!-- Extra details for Live View on GitHub Pages -->
+    <!--     Fonts and icons     -->
+    @*<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />*@
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="~/vendor/flatpickr/flatpickr.min.css" asp-append-version="true">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/css/paper-dashboard.min.css" rel="stylesheet"   asp-append-version="true"/>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/demo/demo.css" rel="stylesheet"   asp-append-version="true"/>
+    <link href="~/css/custom.css" rel="stylesheet"  asp-append-version="true" />
+    <link href="~/css/App/sweetalert/sweetalert.css" rel="stylesheet"  asp-append-version="true" />
+</environment>

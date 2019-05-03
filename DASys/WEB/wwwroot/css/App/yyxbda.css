@@ -1,0 +1,47 @@
+/* Styling for fancyBox demo pages */
+
+h1 {
+  font-weight: 700px;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+
+code {
+  background-color: #f1f2f3;
+}
+
+.card {
+    transition: background .2s;
+    background: #f3f5f0;
+    border: 0;
+}
+
+.card:hover {
+  background:whitesmoke;
+}
+
+.card-body {
+  cursor: pointer;
+}
+
+.imglist {
+  font-size: 0;
+}
+
+.imglist a {
+  display: inline-block;
+  margin: 10px 10px 0 0; 
+}
+
+.imglist a:last-of-type {
+  margin-right: 0; 
+}
+
+.imglist a img {
+  vertical-align: top;
+}
+
+

@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Modulos";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model ModuloConsultaDto
+
+<div id="Modulo" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formModulo">
+                <input type="hidden" asp-for="Accion" value="1" />
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Descripcion" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Descripcion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Posicion" maxlength="2" class="form-control" required>
+                            <label class="floating-label">Posicion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Icono" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Icono</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarModulo">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarModulo">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdModulo" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Seguridad/Modulo.js")"></script>
+    <script>
+        urlModuloIndex = '/Seguridad/Modulo/Index';
+        urlModuloPaginado = '/Seguridad/Modulo/Listar';
+        urlRegistrarModulo = '/Seguridad/Modulo/Registrar';
+        urlActualizarModulo = '/Seguridad/Modulo/Actualizar';
+        urlConsultarModulo = '/Seguridad/Modulo/Consultar';
+        urlEliminarModulo = '/Seguridad/Eliminar/Registrar';
+        urlMantenimientoModulo = '/Seguridad/Modulo/Mantenimiento';
+        $(document).ready(function () {
+            Modulo.init();
+        });
+    </script>
+
+
+}

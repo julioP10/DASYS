@@ -1,0 +1,6 @@
+C:\Users\PILLACA\source\repos\DASys\Entidad\bin\Release\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Entidad\bin\Release\Entidad.pdb
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Release\Entidad.csprojResolveAssemblyReference.cache
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Release\Entidad.csproj.CoreCompileInputs.cache
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Release\Entidad.dll
+C:\Users\PILLACA\source\repos\DASys\Entidad\obj\Release\Entidad.pdb

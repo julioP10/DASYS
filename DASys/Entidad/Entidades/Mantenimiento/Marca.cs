@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Entidad
+{
+    public  class Marca:UsuarioActualDto
+    {
+        public string IdMarca { get; set; }
+        public string IdEntidad { get; set; }
+        public string Nombre { get; set; }
+        public string IdEstado { get; set; }
+    }
+}

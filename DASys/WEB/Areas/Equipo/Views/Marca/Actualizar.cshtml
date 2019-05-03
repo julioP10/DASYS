@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Marcas";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model MarcaConsultaDto
+<div id="Marca" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formMarca">
+                <input type="hidden" asp-for="Accion" value="1" />
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-6">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                @if (Model.IdEstado == "TRUE")
+                                {
+                                    <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                }
+                                else
+                                {
+                                    <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                }
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="container">
+                        <h4>Entidad</h4>
+                        <div class="row">
+                            @foreach (var item in DropDown.ListaMarcaEntidad(Model.IdMarca).Where(p => p.Nombre == "EQUIPOS").ToList())
+                            {
+                                <div class="col-md-4 col-md-offset-2">
+                                    <div class="anil_nepal">
+                                        <label class="switch switch-left-right">
+                                            @if (item.Valor1 == "1")
+                                            {
+                                                <input data-cat="cat" checked value="@item.Value" class="switch-input" type="checkbox">
+                                            }
+                                            else
+                                            {
+                                                <input data-cat="cat" value="@item.Value" class="switch-input" type="checkbox">
+                                            }
+                                            <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                        </label>
+                                        @item.Nombre
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarMarca">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarMarca">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdMarca" />
+                <input type="hidden" asp-for="IdEntidad" />
+                <input type="hidden" asp-for="IdEmpresa" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Equipo/Marca.js")"></script>
+    <script>
+        urlMarcaIndex = '/Equipo/Marca/Index';
+        urlMarcaPaginado = '/Equipo/Marca/Listar';
+        urlRegistrarMarca = '/Equipo/Marca/Registrar';
+        urlActualizarMarca = '/Equipo/Marca/Actualizar';
+        urlConsultarMarca = '/Equipo/Marca/Consultar';
+        urlEliminarMarca = '/Equipo/Marca/Eliminar';
+        urlMantenimientoMarca = '/Equipo/Marca/Mantenimiento';
+        nomUbigeo = '';
+        $(document).ready(function () {
+            Marca.init();
+        });
+    </script>
+
+
+}

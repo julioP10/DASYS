@@ -1,0 +1,420 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Colaboradors";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model ColaboradorConsultaDto
+@{
+    string _TipoEmpresa = HttpContextAccessor.HttpContext.Session.GetString("_TipoEmpresa");
+}
+@section styles{
+    <link href="~/css/App/dropzone/basic.css" rel="stylesheet" />
+    @*<link href="~/css/App/dropzone/dropzone.css" rel="stylesheet" />*@
+}
+<div id="Colaborador" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formColaborador" class="b-formulario f1">
+                <div class="row b-main">
+                    <div class="col-sm-12">
+                        <div class="f1-steps">
+                            <div class="f1-progress">
+                                <div class="f1-progress-line" data-now-value="0" data-number-of-steps="3" style="width: 0%;"></div>
+                            </div>
+                            <div class="f1-step active">
+                                <div class="f1-step-wrap">
+                                    <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                                    <p>Datos personales</p>
+                                </div>
+                            </div>
+                            <div class="f1-step">
+                                <div class="f1-step-wrap">
+                                    <div class="f1-step-icon"><i class="fa fa-book"></i></div>
+                                    <p>Configuracion</p>
+                                </div>
+                            </div>
+                            <div class="f1-step">
+                                <div class="f1-step-wrap">
+                                    <div class="f1-step-icon"><i class="fa fa-contao"></i></div>
+                                    <p>Informacio de contacto</p>
+                                </div>
+                            </div>
+                        </div>
+                        <fieldset id="datosPersonales">
+                            <div class="row">
+                                @*L: Formulario*@
+                                <div class="card-body ">
+                                    <div class="row justify-content-around b-formulario">
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" asp-for="Nombre" maxlength="150" min="2" class="form-control" required>
+                                                <label class="floating-label">Nombre</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" asp-for="ApellidoPaterno" maxlength="100" min="2" class="form-control" required>
+                                                <label class="floating-label">Apellido Paterno</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="text" asp-for="ApellidoMaterno" maxlength="100" min="2" class="form-control" required>
+                                                <label class="floating-label">Apellido Materno</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="Sexo" required class="form-control">
+                                                    <option value="0">Elegir Genero</option>
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Femenino</option>
+                                                </select>
+                                                <label class="floating-label">Genero</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type='text' required asp-for="Direccion" class="form-control" />
+                                                <label class="floating-label">Direccion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type='text' required asp-for="NumeroDocumento" class="form-control" />
+                                                <label class="floating-label">Numero Identificacion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group campo-lleno">
+                                                <div class='input-group campo-lleno'>
+                                                    <input type='text' asp-for="FechaNacimiento" class="form-control campo-lleno campo-focus datepicker" required />
+                                                    <label class="floating-label">Fecha Nacimiento</label>
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-calendar-o fa-2x fa-lg"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type='text' required asp-for="Alias" class="form-control" />
+                                                <label class="floating-label">Alias</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdUDepartamento" required asp-items="@(new SelectList(DropDown.ListaUDepartamento(),"Value","Nombre"))" class="form-control">
+                                                    <option value="0">Elegir Departamento</option>
+                                                </select>
+                                                <label class="floating-label">Departamento Ubicacion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdProvincia" required class="form-control">
+                                                    <option value="0">Elegir Provincia</option>
+                                                </select>
+                                                <label class="floating-label">Provincia Ubicacion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdDistrito" required class="form-control">
+                                                    <option value="0">Elegir Distrito</option>
+                                                </select>
+                                                <label class="floating-label">Distrito Ubicacion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdEmpresa" required asp-items="@(new SelectList(DropDown.ListaEmpresa(_TipoEmpresa),"Value","Nombre"))" class="form-control">
+                                                    <option value="0">Elegir Empresa</option>
+                                                </select>
+                                                <label class="floating-label">Empresa</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdTipoLugar" required class="form-control">
+                                                    <option value="0">Elegir Condicion</option>
+                                                    @foreach (var item in DropDown.ListaTipoLugar("").ToList())
+                                                    {
+                                                        <option data-valor="@item.Valor1" value="@item.Value">@item.Nombre</option>
+                                                    }
+                                                </select>
+                                                <label class="floating-label">Tipo Localidad</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group" id="_Descripcion" style="display:none">
+                                                <input type='text' asp-for="Descripcion" class="form-control" />
+                                                <label class="floating-label">Lugar</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="anil_nepal">
+                                                <label class="switch switch-left-right">
+                                                    @if (Model.IdEstado == "TRUE")
+                                                    {
+                                                        <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input asp-for="IdEstado" class="switch-input" type="checkbox">
+                                                    }
+                                                    <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                                </label>
+                                                Estado
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="f1-buttons">
+                                <button type="button" class="btn btn-next btn-columbia-next">Siguiente</button>
+                            </div>
+                        </fieldset>
+                        <fieldset id="datosApoderado">
+                            <div class="row">
+                                @*L: Formulario*@
+                                <div class="card-body ">
+                                    <div class="row justify-content-around b-formulario">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdDepartamento" required asp-items="@(new SelectList(DropDown.ListaDepartamento(Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                                    <option value="0">Elegir Departamento</option>
+                                                </select>
+                                                <label class="floating-label">Departamento</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdUbicacion" required class="form-control">
+                                                    <option value="0">Elegir Ubicacion</option>
+                                                </select>
+                                                <label class="floating-label">Ubicacion</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdCategoria" required asp-items="@(new SelectList(DropDown.ListaCategoria("COLABORADOR",Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                                    <option value="0">Elegir Categoria</option>
+                                                </select>
+                                                <label class="floating-label">Categoria</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <select asp-for="IdCondicion" required asp-items="@(new SelectList(DropDown.ListaCondicion(Model.IdEmpresaPrincipal),"Value","Nombre"))" class="form-control">
+                                                    <option value="0">Elegir Condicion</option>
+                                                </select>
+                                                <label class="floating-label">Condicion</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="inscribir-separador mx-3 w-100"></div>
+
+                                    <div class="container">
+                                        <div><h4>Areas para Marcar </h4></div>
+                                        <div class="row">
+                                            @foreach (var item in DropDown.ListaArea("", Model.IdEmpresaPrincipal).ToList())
+                                            {
+                                                <div class="col-md-4 col-md-offset-2">
+                                                    <div class="anil_nepal">
+                                                        <label class="switch switch-left-right">
+                                                            @if (item.Valor1 == "1")
+                                                            {
+                                                                <input checked value="@item.Value" area="area" class="switch-input" type="checkbox">
+                                                            }
+                                                            else
+                                                            {
+                                                                <input value="@item.Value" area="area" class="switch-input" type="checkbox">
+                                                            }
+                                                            <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                                        </label>
+                                                        @item.Nombre
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="f1-buttons">
+                                <button type="button" class="btn btn-previous btn-columbia-before">Anterior</button>
+
+                                <button type="button" disabled id="_sig" class="btn btn-next btn-columbia-next">Siguiente</button>
+                            </div>
+                        </fieldset>
+                        <fieldset id="datosAcademicos">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="card" style="background-color: rgba(81, 203, 206, 0.7490196078431373) !important;">
+                                        <div class="card-header ">
+                                            <h4 class="card-title">Correos</h4>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type='email' id="_correo" class="form-control" />
+                                                        <label class="floating-label">Correos</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <select asp-for="TipoCorreo" asp-items="@(new SelectList(DropDown.ListaEmail(),"Value","Nombre"))" class="form-control">
+                                                            <option value="0">Elegir Tipo</option>
+                                                        </select>
+                                                        <label class="floating-label">Tipo</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <table class="table" id="tableCorreo">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Correo</th>
+                                                        <th scope="col">Tipo</th>
+                                                        <th scope="col">Opcion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="_tableCorreo"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <hr>
+                                            <div class="stats">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card" style="background-color: rgba(81, 203, 206, 0.7490196078431373) !important;">
+                                        <div class="card-header ">
+                                            <h4 class="card-title">Telefonos</h4>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type='text' id="_telefono" class="form-control" />
+                                                        <label class="floating-label">Numero Telefono</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <select asp-for="TipoTelefono" asp-items="@(new SelectList(DropDown.ListaOperador(),"Value","Nombre"))" class="form-control">
+                                                            <option value="0">Elegir Tipo</option>
+                                                        </select>
+                                                        <label class="floating-label">Tipo</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <table class="table" id="tableTelefono">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Telefono</th>
+                                                        <th scope="col">Tipo</th>
+                                                        <th scope="col">Opcion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="_tableTelefono"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <hr>
+                                            <div class="stats">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card" style="background-color: rgba(81, 203, 206, 0.7490196078431373) !important;">
+                                        <div class="card-header ">
+                                            <h4 class="card-title">Tarjetas</h4>
+                                            <div class="row">
+                                                <div class="col-sm-7">
+                                                    <div class="form-group">
+                                                        <input type='text' id="_tarjeta" class="form-control" />
+                                                        <label class="floating-label">Numero Tarjeta</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body ">
+                                            <table class="table" id="tableTarjeta">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Numero</th>
+                                                        <th scope="col">Tipo</th>
+                                                        <th scope="col">Opcion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="_tableTarjeta"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <hr>
+                                            <div class="stats">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="f1-buttons">
+                                <button type="button" class="btn btn-previous btn-columbia-before">Anterior</button>
+                                <button type="button" class="btn btn-columbia2" id="btn-RegresarColaborador">Regresar</button>
+
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdColaborador" />
+                <input type="hidden" asp-for="IdPersona" />
+                <input type="hidden" asp-for="Telefono" />
+                <input type="hidden" asp-for="Tarjeta" />
+                <input type="hidden" asp-for="Correo" />
+                <input type="hidden" asp-for="IdArea" />
+                <input type="hidden" asp-for="IdProvincia" id="_IdProvincia" name="_IdProvincia" />
+                <input type="hidden" asp-for="IdDistrito" id="_IdDistrito" name="_IdDistrito" />
+                <input type="hidden" asp-for="IdUDepartamento" id="_IdUDepartamento" name="_IdUDepartamento" />
+                <input type="hidden" asp-for="IdUbicacion" id="_IdUbicacion" name="_IdUbicacion" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/form-wizard.js")"></script>
+    <script src="@Url.Content("~/js/App/ViewJs/Mantenimiento/Colaborador.js")"></script>
+    <script>
+        urlColaboradorIndex = '/Mantenimiento/Colaborador/Index';
+        urlColaboradorPaginado = '/Mantenimiento/Colaborador/Listar';
+        urlRegistrarColaborador = '/Mantenimiento/Colaborador/Registrar';
+        urlActualizarColaborador = '/Mantenimiento/Colaborador/Actualizar';
+        urlConsultarColaborador = '/Mantenimiento/Colaborador/Consultar';
+        urlEliminarColaborador = '/Mantenimiento/Eliminar/Registrar';
+        urlMantenimientoColaborador = '/Mantenimiento/Colaborador/Mantenimiento';
+        $(document).ready(function () {
+            Colaborador.init();
+        });
+    </script>
+
+
+}

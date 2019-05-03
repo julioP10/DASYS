@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Permiso";
+    Layout = null;
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model UsuarioConsultaDto
+@{
+    var contador = 0;
+}
+<div class="modal-content view-asignar-counter">
+    <div class="modal-header">
+        <div class="row b-title">
+            <div class="col-sm-12 b-title">
+                <h2 id="txtCounter">Permisos</h2>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form id="frmPermiso" class="b-formulario f1">
+            <input type="hidden" id="idval" name="idval" />
+            <input type="hidden" id="idvalpr" name="idvalpr" />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                                @foreach (var item in Model.lstModulo.ToList())
+                                {
+                                    <div class="card card-plain">
+                                        <div class="card-header" role="tab" id="headingOne">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#_@item.IdModulo" aria-expanded="false" aria-controls="_@item.IdModulo" class="collapsed">
+                                                @item.Nombre
+                                                <i class="nc-icon nc-minimal-down"></i>
+                                            </a>
+                                        </div>
+                                        <div id="_@item.IdModulo" class="collapse" role="tabpanel" aria-labelledby="headingOne" style="">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    @foreach (var item2 in Model.lstOpcion.Where(p => p.IdModulo == item.IdModulo).ToList())
+                                                    {
+                                                        @if (item2.IdModulo == item.IdModulo)
+                                                        {
+                                                            if (item2.IdModulo == "MO0003")
+                                                            {
+                                                                if (item2.SubMenu > 0)
+                                                                {
+                                                                    <div class="col-lg-12">
+                                                                        <div id="accordion2" role="tablist" aria-multiselectable="true" class="card-collapse">
+                                                                            <div class="card card-plain">
+                                                                                <div class="card-header" role="tab" id="headingOne">
+                                                                                    <a class="collapsed" style="color:#01ae9a !important" data-toggle="collapse" data-parent="#accordion2" href="#_@item2.IdOpcion" aria-expanded="false" aria-controls="_@item2.IdOpcion">
+                                                                                        @item2.Nombre
+                                                                                        <i class="nc-icon nc-minimal-down"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div id="_@item2.IdOpcion" class="collapse" role="tabpanel" aria-labelledby="_@item2.IdOpcion">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            @foreach (var item3 in Model.lstOpcion.Where(p => p.IdPadre == item2.IdOpcion).ToList())
+                                                                                            {
+                                                                                                if (item2.IdOpcion == item3.IdPadre)
+                                                                                                {
+                                                                                                    if (item3.EsInicio)
+                                                                                                    {
+                                                                                                        <div class="col-md-4 col-md-offset-2">
+                                                                                                            <div class="anil_nepal">
+                                                                                                                <label class="switch switch-left-right">
+                                                                                                                    @if (item3.Permitido == 1)
+                                                                                                                    {
+                                                                                                                        <input modulo="modulo" checked value="@item3.IdOpcion" class="switch-input chkPermiso" type="checkbox">
+                                                                                                                    }
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                        <input modulo="modulo" value="@item3.IdOpcion" class="switch-input chkPermiso" type="checkbox">
+                                                                                                                    }
+                                                                                                                    <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                                                                                                </label>
+                                                                                                                @if (item3.EsInicio)
+                                                                                                                {
+                                                                                                                    <span>@item3.Nombre</span>
+                                                                                                                    /**/
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    <span>@item3.Nombre</span>
+                                                                                                                }
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item2.EsInicio)
+                                                                {
+                                                                    <div class="col-md-4 col-md-offset-2">
+                                                                        <div class="anil_nepal">
+                                                                            <label class="switch switch-left-right">
+                                                                                @if (item2.Permitido == 1)
+                                                                                {
+                                                                                    <input modulo="modulo" checked value="@item2.IdOpcion" class="switch-input chkPermiso" type="checkbox">
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <input modulo="modulo" value="@item2.IdOpcion" class="switch-input chkPermiso" type="checkbox">
+                                                                                }
+                                                                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                                                                            </label>
+                                                                            @if (item2.IdModulo == "MO0006")
+                                                                            {
+                                                                                <span>@item2.Descripcion</span>
+                                                                                /**/
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span>@item2.Controlador</span>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                }
+
+                                                            }
+
+
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="IdPersona" name="IdPersona" />
+
+            <div class="col-sm-12">
+                <div class="lu-form-actions">
+                    <button type="button" class="btn btn-columbia2" data-dismiss="modal">Salir</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

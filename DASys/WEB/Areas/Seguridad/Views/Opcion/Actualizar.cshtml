@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCRM.cshtml";
+    ViewData["Title"] = "Inicio > Mantenimiento > Opcions";
+}
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+@using Entidad
+@using WEB
+@model OpcionConsultaDto
+
+<div id="Opcion" class="col-md-12">
+    <div class="card ">
+        @*L: Formulario*@
+        <div class="card-body ">
+            <form id="formOpcion">
+                <input type="hidden" asp-for="Accion" value="1" />
+
+                <div class="row justify-content-around b-formulario">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Nombre" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Nombre</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Descripcion" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Descripcion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="display:none">
+                        <div class="form-group">
+                            <input type="text" asp-for="Area" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Area</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="display:none">
+                        <div class="form-group">
+                            <input type="text" asp-for="Controlador" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Controlador</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="display:none">
+                        <div class="form-group">
+                            <input type="text" asp-for="Accion" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Accion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Posicion" maxlength="2" class="form-control" required>
+                            <label class="floating-label">Posicion</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" asp-for="Icono" maxlength="150" class="form-control" required>
+                            <label class="floating-label">Icono</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="display:none">
+                        <div class="form-group">
+                            <select asp-for="IdModulo" required asp-items="@(new SelectList(DropDown.ListaModulo(""),"Value","Nombre"))" class="form-control">
+                                <option value="0">Elegir Modulo</option>
+                            </select>
+                            <label class="floating-label">Modulo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2" style="display:none">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="EsInicio" class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Es Inicio
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="anil_nepal">
+                            <label class="switch switch-left-right">
+                                <input asp-for="IdEstado" checked class="switch-input" type="checkbox">
+                                <span class="switch-label" data-on="SI" data-off="NO"></span> <span class="switch-handle"></span>
+                            </label>
+                            Estado
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="lu-form-actions">
+                            <button type="button" class="btn btn-columbia2" id="btn-RegresarOpcion">Regresar</button>
+                            <button type="button" class="btn btn-columbia1" id="btn-RegistrarOpcion">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="IdOpcion" />
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="@Url.Content("~/js/App/ViewJs/Seguridad/Opcion.js")"></script>
+    <script>
+        urlOpcionIndex = '/Seguridad/Opcion/Index';
+        urlOpcionPaginado = '/Seguridad/Opcion/Listar';
+        urlRegistrarOpcion = '/Seguridad/Opcion/Registrar';
+        urlActualizarOpcion = '/Seguridad/Opcion/Actualizar';
+        urlConsultarOpcion = '/Seguridad/Opcion/Consultar';
+        urlEliminarOpcion = '/Seguridad/Eliminar/Registrar';
+        urlMantenimientoOpcion = '/Seguridad/Opcion/Mantenimiento';
+        $(document).ready(function () {
+            Opcion.init();
+        });
+    </script>
+
+
+}
